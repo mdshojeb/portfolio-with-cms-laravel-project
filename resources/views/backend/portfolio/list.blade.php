@@ -1,16 +1,16 @@
 @extends('backend.layout')
 
-@section('page-title','All Services List')
+@section('page-title','Portfolio List')
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card-box">
-            <h4 class="header-title mb-4">All Services List</h4>
+            <h4 class="header-title mb-4">All Portfolio Items</h4>
 
             <div class="row">
                 <div class="col-md-10 offset-md-1">
-                <a href="{{url('/add-service')}}"class="btn btn-warning">Add Service</a>
+                <a href="{{url('/add-portfolio')}}"class="btn btn-warning">Add Portfolio Item</a>
                 <hr>
                     @if (session()->has('msg'))
                     <div class="alert alert-success alert-dismissible">
@@ -21,19 +21,21 @@
                    <table class="table bordered">
                        <thead class="bg-light">
                            <th>SL</th>
-                           <th>Service Name</th>
-                           
+                           <th>Title</th>
+                           <th>Catagory</th>
+                           <th>Image</th>
                            <th>Action</th>
                        </thead>
                        <tbody class="">
-                           @foreach ($data as $item)
+                           @foreach ($portfolio as $item)
                            <tr>
                            <td>{{$loop->index+1}}</td>
-                           <td>{{$item->services_title}}</td>
+                           <td>{{$item->title}}</td>
+                           <td>{{$item->catagory}}</td>
+                           <td><img src="{{asset('/storage/image/portfolio/'.$item->image)}}" alt="Portfolio Image"width='150'></td>
                            
                            <td>
-                           <a href="{{url('/edit-service/'.$item->id)}}" class="btn btn-success">Edit</a>
-                           <a href="{{url('/delete-service/'.$item->id)}}" class="btn btn-danger">Delete</a>
+                           <a href="{{url('/delete-portfolio/'.$item->id)}}" class="btn btn-danger">Delete</a>
                            </td>
                            </tr>
                            @endforeach

@@ -17,6 +17,15 @@ class Home extends Controller
 
         //skills  data form db
         $skill=DB::table('skill')->get();
-        return view('frontend.index',compact('intro','skill','about'));
+
+        //services
+        $service=DB::table('services')->get();
+
+        //couner data
+        $counter=DB::table('counter')->get();
+
+        //portfolio item
+        $portfolio=DB::table('portfolios')->orderby('id','desc')->get();
+        return view('frontend.index',compact('intro','skill','about','service','counter','portfolio'));
     }
 }

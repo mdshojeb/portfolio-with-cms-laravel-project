@@ -100,6 +100,8 @@
                                 <li><a href="{{url('/about-me')}}">-About Me</a></li>
                                 <li><a href="{{url('/add-skill')}}">-Skill</a></li>
                                 <li><a href="{{url('/service-section')}}">-Service Section</a></li>
+                                <li><a href="{{url('/counter-section')}}">-Counter Section</a></li>
+                                <li><a href="{{url('/add-portfolio')}}">-Portfolio Section</a></li>
                                 </ul>
                             </li>
 

@@ -1,6 +1,6 @@
 @extends('backend.layout')
 
-@section('page-title','EEdit Section Details')
+@section('page-title','Edit Section Details')
 
 @section('content')
 <div class="row">
