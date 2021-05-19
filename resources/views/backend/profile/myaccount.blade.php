@@ -7,9 +7,13 @@
 
         <div class="card">
             <div class="card-body">
-                @if (session()->has('msg'))
-                    {{session('msg')}}
-                @endif
+                {{-- success message --}}
+                  @if (session()->has('msg'))
+                    <div class="alert alert-success" role="alert">
+                      {{session('msg')}}
+                    </div>
+                  @endif
+                
             <form action="{{url('/user-update/'.$data[0]->id)}}" method="post"enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">

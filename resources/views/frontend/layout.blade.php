@@ -5,13 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Portfolio Template</title>
+  <title>@yield('page_title')</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
-  <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <link href="{{asset('/storage/image/'.App\Models\WebsiteProperty::first()->icon)}}" rel="icon">
 
   <!-- Vendor CSS Files -->
   <link href="{{asset('frontend/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -36,7 +35,13 @@
   <!-- ======= Header/ Navbar ======= -->
   <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll" href="#page-top">PortFolio</a>
+      @if (App\Models\WebsiteProperty::first()->logo && App\Models\WebsiteProperty::first()->show_logo==1)
+      <a class="navbar-brand js-scroll" href="{{url('/')}}"><img src="{{asset('/storage/image/'.App\Models\WebsiteProperty::first()->logo)}}" alt="website logo" style="width:150px"></a>
+      @else
+      <a class="navbar-brand js-scroll" href="{{url('/')}}">{{App\Models\WebsiteProperty::first()->web_title}}</a>
+      @endif
+    
+    
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span></span>
         <span></span>
@@ -45,7 +50,7 @@
       <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link js-scroll active" href="index.html">Home</a>
+          <a class="nav-link js-scroll active" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll" href="#about">About</a>
@@ -76,12 +81,11 @@
           <h2 class="intro-title mb-4">Blog Details</h2>
           <ol class="breadcrumb d-flex justify-content-center">
             <li class="breadcrumb-item">
-              <a href="#">Home</a>
+            <a href="{{url('/')}}">Home</a>
             </li>
             <li class="breadcrumb-item">
-              <a href="#">Library</a>
+              <a href="#">Blog</a>
             </li>
-            <li class="breadcrumb-item active">Data</li>
           </ol>
         </div>
       </div>
@@ -89,14 +93,14 @@
   </div>
   @show
   {{-- main content --}}
-  @yield('content')
+    @yield('content')
   <!-- ======= Footer ======= -->
   <footer>
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
           <div class="copyright-box">
-            <p class="copyright">&copy; Copyright <strong>DevFolio</strong>. All Rights Reserved</p>
+          <p class="copyright">&copy; Copyright <strong>{{\App\Models\WebsiteProperty::first()->web_title}}</strong>. {{\App\Models\WebsiteProperty::first()->footer_credit}}</p>
             <div class="credits">
               <!--
               All the links in the footer should remain intact.

@@ -42,9 +42,6 @@
 
 								<div class="form-group">
 									<label for="password">Password
-										<a href="forgot.html" class="float-right">
-											Forgot Password?
-										</a>
 									</label>
 									<input id="password" type="password" class="form-control @error('email') is-invalid @enderror" name="password">
 								    <div style="color:red;margin-top:0">
@@ -53,27 +50,16 @@
 										@enderror
 									</div>
 								</div>
-
-								<div class="form-group">
-									<div class="custom-checkbox custom-control">
-										<input type="checkbox" name="remember" id="remember" class="custom-control-input">
-										<label for="remember" class="custom-control-label">Remember Me</label>
-									</div>
-								</div>
-
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">
 										Login
 									</button>
 								</div>
-								<div class="mt-4 text-center">
-								Don't have an account? <a href="{{url('/register')}}">Create One</a>
-								</div>
 							</form>
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; 2017 &mdash; Your Company 
+						Copyright &copy; {{date('Y')}} &mdash; Developed By Shajeeb Mahmud
 					</div>
 				</div>
 			</div>

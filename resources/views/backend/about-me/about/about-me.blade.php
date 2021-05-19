@@ -1,6 +1,12 @@
 @extends('backend.layout')
 
 @section('page-title','Edit About Me')
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <style>
+    
+    </style>
+@endpush
 
 @section('content')
 <div class="row">
@@ -56,7 +62,7 @@
                         </div>
                         <div class="form-group">
                             <label for="about_detail">About Detail</label>
-                        <textarea name="about_detail" id="editor" cols="30" rows="10"class="form-control">{{$data[0]->about_detail}}</textarea>
+                        <textarea name="about_detail" id="summernote" cols="30" rows="10"class="form-control">{{$data[0]->about_detail}}</textarea>
                             <div style="color:red;margin-top:0">
                                 @error('about_detail')
                                     {{$message}}  
@@ -93,3 +99,15 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#summernote').summernote({
+            placeholder: 'Write your post',
+            tabsize: 2,
+            height: 200
+      });
+      });
+    </script>
+@endpush

@@ -11,8 +11,10 @@ class UserProfile extends Controller
 {
     //retrieving data from database
     public function myaccount(){
-        $data=UserAuth::all();
+        $user_id=session('id');
+        $data=DB::table('users')->where('id',$user_id)->get();
         return view('backend.profile.myaccount',compact('data'));
+
     }
 
     //updating user profile 
@@ -46,6 +48,18 @@ class UserProfile extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'image'=>$imageName,
+            ]);
+            if($update){
+                $request->session()->flash('msg','Your Data Saved Successfully');
+                return redirect('/myaccount');
+            }else{
+                $request->session()->flash('msg','Sorry Something wrong!');
+                return redirect('/myaccount');
+            }
+        }else{
+            $update=DB::table('users')->where('id',$request->id)->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
             ]);
             if($update){
                 $request->session()->flash('msg','Your Data Saved Successfully');

@@ -39,33 +39,43 @@ class UserAuthentication extends Controller
        }
     }
 
+    public function loginPage(){
+        if (session()->has('id')) {
+            return redirect('/dashboard');
+        } else {
+            return view('frontend.login');
+        }
+        
+    }
 
     //check login form data
     public function login(Request $request){
-        //validating login form data
-        $request->validate([
-            'email'=>'required',
-            'password'=>'required',
-        ]);
-        //retriving data from database
-        $userdata=UserAuth::where('email',$request->email)->value('password');
-        $valid=Hash::check($request->password, $userdata);
         
-        if($valid!=1){
-            $request->session()->flash('msg','Your Email and Password does not exist');
-            return redirect('/web-admin');
-        }else{
-          $userdata=DB::table('users')->where('email',$request->email)->get();
-          $request->session()->put([
-              'name'=>$userdata[0]->name, 
-              'id'=>$userdata[0]->id,
-              'role'=>$userdata[0]->role,
-              'email'=>$userdata[0]->email,
-              'password'=>$request->password,
-              'user-img'=>$userdata[0]->image
-              ]);
-          return redirect('/dashboard');
-        }  
+           //validating login form data
+            $request->validate([
+                'email'=>'required',
+                'password'=>'required',
+            ]);
+            //retriving data from database
+            $userdata=UserAuth::where('email',$request->email)->value('password');
+            $valid=Hash::check($request->password, $userdata);
+            
+            if($valid!=1){
+                $request->session()->flash('msg','Your Email and Password does not exist');
+                return redirect('/web-admin');
+            }else{
+            $userdata=DB::table('users')->where('email',$request->email)->get();
+            $request->session()->put([
+                'name'=>$userdata[0]->name, 
+                'id'=>$userdata[0]->id,
+                'role'=>$userdata[0]->role,
+                'email'=>$userdata[0]->email,
+                'password'=>$request->password,
+                'user-img'=>$userdata[0]->image
+                ]);
+
+            return redirect('/dashboard');
+            } 
     }
 
     public function logout(Request $request){

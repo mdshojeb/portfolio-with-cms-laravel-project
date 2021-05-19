@@ -884,7 +884,7 @@ a:hover {
 # Testimonials
 --------------------------------------------------------------*/
 .testimonials .owl-carousel .owl-item img {
-  width: auto;
+  width: 150px;
 }
 
 .testimonial-box {

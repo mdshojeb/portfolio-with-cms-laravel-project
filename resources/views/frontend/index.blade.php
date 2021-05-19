@@ -1,5 +1,7 @@
 @extends('frontend.layout')
 
+@section('page_title','Portfolio Website')
+
 @section('content')
 
 @section('page-intro')
@@ -210,38 +212,26 @@
     </section><!-- End Portfolio Section -->
 
     <!-- ======= Testimonials Section ======= -->
-    <div class="testimonials paralax-mf bg-image" style="background-image: url(assets/img/overlay-bg.jpg)">
+    <div class="testimonials paralax-mf bg-image" style="background-image: url({{asset('/storage/image/'.$r_bg[0]->image)}})">
       <div class="overlay-mf"></div>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div id="testimonial-mf" class="owl-carousel owl-theme">
+              @foreach ($review as $item)
               <div class="testimonial-box">
                 <div class="author-test">
-                  <img src="assets/img/testimonial-2.jpg" alt="" class="rounded-circle b-shadow-a">
-                  <span class="author">Xavi Alonso</span>
+                <img src="{{asset('/storage/image/'.$item->image)}}" alt="Author Image" class="rounded-circle b-shadow-a review-author">
+                <span class="author">{{$item->name}}</span>
                 </div>
                 <div class="content-test">
                   <p class="description lead">
-                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.
+                    {{$item->review}}
                   </p>
                   <span class="comit"><i class="fa fa-quote-right"></i></span>
                 </div>
               </div>
-              <div class="testimonial-box">
-                <div class="author-test">
-                  <img src="assets/img/testimonial-4.jpg" alt="" class="rounded-circle b-shadow-a">
-                  <span class="author">Marta Socrate</span>
-                </div>
-                <div class="content-test">
-                  <p class="description lead">
-                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.
-                  </p>
-                  <span class="comit"><i class="fa fa-quote-right"></i></span>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>
@@ -255,115 +245,55 @@
           <div class="col-sm-12">
             <div class="title-box text-center">
               <h3 class="title-a">
-                Blog
+               Recent Blog
               </h3>
-              <p class="subtitle-a">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              </p>
               <div class="line-mf"></div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-1.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Travel</h6>
+          @foreach ($blog as $blog)
+              @if($blog->status==1)
+              <div class="col-md-4">
+                <div class="card card-blog">
+                  <div class="card-img">
+                  <a href="{{url('/blog/'.$blog->id.'/'.$blog->slug)}}"><img src="{{asset('/storage/posts/'.$blog->image)}}" alt="Post Image" class="img-fluid"></a>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-category-box">
+                      <div class="card-category">
+                      <h6 class="category">{{$blog->category->name}}</h6>
+                      </div>
+                    </div>
+                  <h4 class="card-title"><a href="{{url('/blog/'.$blog->id.'/'.$blog->slug)}}">{{ $blog->title}}</a></h4>
+                    <p class="card-description">
+                      {!! \Illuminate\Support\Str::limit($blog->body,100,$end='...')!!}
+                    </p>
+                  </div>
+                  <div class="card-footer">
+                    <div class="post-author">
+                      <a href="#">
+                        <i class="ion-ios-person"style="font-size:16px"></i>
+                      {{-- <img src="" alt="" class="avatar rounded-circle"> --}}
+                      <span class="author">
+                        {{$blog->user->name}}
+                      </span>
+                      </a>
+                    </div>
+                    <div class="post-date">
+                      <span class="ion-ios-clock-outline"></span> {{$blog->created_at->format('M d, Y')}}
+                    </div>
                   </div>
                 </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
-                <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
-                </p>
               </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
-                  </a>
-                </div>
-                <div class="post-date">
-                  <span class="ion-ios-clock-outline"></span> 10 min
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-2.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Web Design</h6>
-                  </div>
-                </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
-                <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
-                </p>
-              </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
-                  </a>
-                </div>
-                <div class="post-date">
-                  <span class="ion-ios-clock-outline"></span> 10 min
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-3.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Web Design</h6>
-                  </div>
-                </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
-                <p class="card-description">
-                  Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                  a pellentesque nec,
-                  egestas non nisi.
-                </p>
-              </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                    <span class="author">Morgan Freeman</span>
-                  </a>
-                </div>
-                <div class="post-date">
-                  <span class="ion-ios-clock-outline"></span> 10 min
-                </div>
-              </div>
-            </div>
-          </div>
+              @endif
+          @endforeach
         </div>
       </div>
     </section><!-- End Blog Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/overlay-bg.jpg)">
+    <section class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url({{asset('/storage/image/'.$c_bg[0]->bg_image)}})">
       <div class="overlay-mf"></div>
       <div class="container">
         <div class="row">
@@ -378,36 +308,48 @@
                       </h5>
                     </div>
                     <div>
-                      <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <form action="{{url('/send-message')}}" method="post">
+                      @csrf
                         <div class="row">
-                          <div class="col-md-12 mb-3">
+                          <div class="col-md-12">
                             <div class="form-group">
-                              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                              <div class="validate"></div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                              <div class="validate"></div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                              <div class="validate"></div>
+                              <input type="text" name="name" class="form-control" id="name" placeholder='Your Name' value="{{old('name')}}" />
+                              <div style='color:red'>
+                                @error('name')
+                                    {{$message}}
+                                @enderror
+                              </div>
                             </div>
                           </div>
                           <div class="col-md-12">
                             <div class="form-group">
-                              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                              <div class="validate"></div>
+                            <input type="email" class="form-control" name="email" id="email" placeholder='Your Email' value="{{old('email')}}" />
+                              <div style='color:red'>
+                                @error('email')
+                                    {{$message}}
+                                @enderror
+                              </div>
                             </div>
                           </div>
-                          <div class="col-md-12 text-center mb-3">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Your message has been sent. Thank you!</div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="subject" id="subject"placeholder='Subject' value="{{old('email')}}" />
+                              <div style='color:red'>
+                                @error('subject')
+                                    {{$message}}
+                                @enderror
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                            <textarea class="form-control" name="message" rows="5"placeholder='Write your message...'>{{old('message')}}</textarea>
+                            <div style='color:red'>
+                              @error('message')
+                                  {{$message}}
+                              @enderror
+                            </div>
+                            </div>
                           </div>
                           <div class="col-md-12 text-center">
                             <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
@@ -424,23 +366,20 @@
                     </div>
                     <div class="more-info">
                       <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum dolorem soluta quidem
-                        expedita aperiam aliquid at.
-                        Totam magni ipsum suscipit amet? Autem nemo esse laboriosam ratione nobis
-                        mollitia inventore?
+                        {{$contact[0]->description}}
                       </p>
                       <ul class="list-ico">
-                        <li><span class="ion-ios-location"></span> 329 WASHINGTON ST BOSTON, MA 02108</li>
-                        <li><span class="ion-ios-telephone"></span> (617) 557-0089</li>
-                        <li><span class="ion-email"></span> contact@example.com</li>
+                      <li><span class="ion-ios-location"></span> {{$contact[0]->address}}</li>
+                      <li><span class="ion-ios-telephone"></span> {{$contact[0]->phone}}</li>
+                        <li><span class="ion-email"></span> {{$contact[0]->email}}</li>
                       </ul>
                     </div>
                     <div class="socials">
                       <ul>
-                        <li><a href=""><span class="ico-circle"><i class="ion-social-facebook"></i></span></a></li>
-                        <li><a href=""><span class="ico-circle"><i class="ion-social-instagram"></i></span></a></li>
-                        <li><a href=""><span class="ico-circle"><i class="ion-social-twitter"></i></span></a></li>
-                        <li><a href=""><span class="ico-circle"><i class="ion-social-pinterest"></i></span></a></li>
+                        <li><a href="{{$contact[0]->facebook}}"><span class="ico-circle"><i class="ion-social-facebook"></i></span></a></li>
+                        <li><a href="{{$contact[0]->linkedin}}"><span class="ico-circle"><i class="ion-social-instagram"></i></span></a></li>
+                        <li><a href="{{$contact[0]->twitter}}"><span class="ico-circle"><i class="ion-social-twitter"></i></span></a></li>
+                        <li><a href="{{$contact[0]->pinterest}}"><span class="ico-circle"><i class="ion-social-pinterest"></i></span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -453,3 +392,4 @@
     </section><!-- End Contact Section -->
 
 @endsection
+
